@@ -22,7 +22,7 @@
 
 ### Operation:
 - Can be charged with any cellphone charger available, using the microusb/c-type adpater of the TP4056. For a more robust option, a different connector can be soldered instead.
-- When powered, it will try to connect to the ESPNow gateway mac address defined in config. If successfull, it will output a CONN message in the LCD, otherwise it will show the word SOLO, but in this case it could be used standalone just to count.
-- Any press of the pushbutton will count laps up, with no limit, vibrating inmediatelly after.
+- When powered, it will try to connect to the ESPNow gateway mac address defined in config. If successfull, it will output a CONN indicator in the LCD and be ready to send ESPNow messages; otherwise it will show the word SOLO, but still be able to work as standalone.
+- Any press of the pushbutton will count laps up, with no limit, vibrating inmediatelly with every hit.
 - If the counter is network connected, the vibration will confirm that the new lap message has already been sent to the gateway.
 - When desired, the counter can be resetted by a longpress of the pushbutton, to start the count all over again.
