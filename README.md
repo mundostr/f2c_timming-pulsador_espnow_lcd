@@ -14,7 +14,7 @@
 - 6x6 momentary push switch for on-off.
 
 ### Features:
-- LCD Display based (this kind of display is the only one fully visible in different conditions, including intense direct sunlight).
+- LCD Display based (this kind of display is the only one fully visible in different conditions, including intense direct sunlight, despite backlight active or not (suggested backlight active)).
 - For better readability, the laps are shown with big numbers.
 - The same pushbutton is used to count laps and reset to 0 (with a long press).
 - Can be used standalone, or network connected via ESPNow Espressif protocol.
