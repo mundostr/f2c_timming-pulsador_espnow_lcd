@@ -4,6 +4,7 @@
 
 namespace pushbtn {
 	Button2 btn;
+    uint32_t manual_long_pressed_timer = 0;
 
     void sendLaps() {
         config::sending_laps = true;
@@ -26,10 +27,28 @@ namespace pushbtn {
 		digitalWrite(BUZZER_PIN, HIGH);
 	}
 
-	void cb_longpressed(Button2& btn) {
+    void check_suspension() {
+        if (config::btn_long_pressed) {
+            if (pushbtn::btn.isPressed() && millis() - pushbtn::manual_long_pressed_timer >= PUSHBTN_LONG_CLICK_DURATION * 2) {
+                config::btn_long_pressed = false;
+                pushbtn::manual_long_pressed_timer = millis();
+                config::display.clear();
+                config::display.noBacklight();
+
+                Serial.println("Suspensión");
+
+                esp_deep_sleep_start();
+            }
+        } else {
+            pushbtn::manual_long_pressed_timer = millis();
+        }
+    }
+
+    void cb_long_pressed_detected(Button2& btn) {
         config::laps = 0;
         config::btn_long_pressed = true;
         config::beat_back_timer = millis();
+        pushbtn::manual_long_pressed_timer = millis();
         if (!config::connection_on) activate_buzz();
         sendLaps();
         updateDisplay();
@@ -45,7 +64,9 @@ namespace pushbtn {
             sendLaps();
             updateDisplay();
             config::beat_back_timer = millis();
-		}
+		} else {
+            config::btn_long_pressed = false;
+        }
 	}
 
 	void init() {
@@ -54,6 +75,6 @@ namespace pushbtn {
 		btn.setLongClickTime(PUSHBTN_LONG_CLICK_DURATION);
 		btn.setPressedHandler(cb_pressed);
 		btn.setReleasedHandler(cb_released);
-		btn.setLongClickDetectedHandler(cb_longpressed);
+		btn.setLongClickDetectedHandler(cb_long_pressed_detected);
 	}
 }

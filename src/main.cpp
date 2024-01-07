@@ -24,6 +24,7 @@ void setup() {
 
 void loop() {
 	pushbtn::btn.loop();
+    pushbtn::check_suspension();
 	main::beat();
 	main::buzz();
 }

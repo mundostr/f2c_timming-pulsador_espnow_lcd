@@ -12,12 +12,14 @@ https://randomnerdtutorials.com/esp-now-two-way-communication-esp32/
 #include <WiFi.h>
 #include <LiquidCrystal_I2C.h>
 #include "BigNumbers_I2C.h"
+#include <esp_sleep.h>
 
 #define DEBUG false
 
-#define LED_PIN 2
-#define PUSHBTN_PIN 12
-#define BUZZER_PIN 18
+#define LED_PIN GPIO_NUM_2
+#define PUSHBTN_PIN GPIO_NUM_12
+#define BUZZER_PIN GPIO_NUM_18
+#define WAKEUP_PIN GPIO_NUM_32
 
 // Generador random de ID, temporal, solo para pruebas
 const int randomId = random(1, 4);
@@ -30,7 +32,7 @@ const int randomId = random(1, 4);
 #define BUZZER_NOTIF_FREQ 100
 #define SERIAL_CONSOLE_BAUDS 115200
 #define PUSHBTN_DEBOUNCE_TIME 75
-#define PUSHBTN_LONG_CLICK_DURATION 2500
+#define PUSHBTN_LONG_CLICK_DURATION 2000
 #define BIG_DIGIT_X_OFFSET 0
 #define BIG_DIGIT_Y_OFFSET 0
 #define BIG_DIGIT_DIGITS 3
@@ -49,4 +51,7 @@ namespace config {
 
     LiquidCrystal_I2C display(0x27, 16, 2);
 	BigNumbers_I2C bigNumber(&display);
+
+    /* enum runningStates { NORMAL, SUSPENDED };
+    runningStates currentRunningState; */
 }

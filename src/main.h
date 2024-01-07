@@ -45,6 +45,9 @@ namespace main {
 		pinMode(PUSHBTN_PIN, INPUT_PULLUP);
 		pinMode(BUZZER_PIN, OUTPUT);
 		digitalWrite(BUZZER_PIN, LOW);
+        pinMode(WAKEUP_PIN, INPUT_PULLUP);
+
+        esp_sleep_enable_ext0_wakeup(WAKEUP_PIN, 0);
 	}
 
     void showStatus() {
