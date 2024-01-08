@@ -12,7 +12,7 @@
 - XL6009 stepup module or similar replacement.
 - TP4056 1S charger.
 - 10 mm cellphone vibrator module.
-- 6x6 momentary push switch for on-off.
+- 8x8 momentary push switch for on-off.
 
 ### Features:
 - LCD Display based (this kind of display is the only one fully visible in different conditions, including intense direct sunlight, despite backlight active or not (suggested backlight active)).
