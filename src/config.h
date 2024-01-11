@@ -14,7 +14,7 @@ https://randomnerdtutorials.com/esp-now-two-way-communication-esp32/
 #include "BigNumbers_I2C.h"
 #include <esp_sleep.h>
 
-#define DEBUG false
+// #define DEBUG
 
 #define LED_PIN GPIO_NUM_2
 #define PUSHBTN_PIN GPIO_NUM_12
@@ -51,7 +51,4 @@ namespace config {
 
     LiquidCrystal_I2C display(0x27, 16, 2);
 	BigNumbers_I2C bigNumber(&display);
-
-    /* enum runningStates { NORMAL, SUSPENDED };
-    runningStates currentRunningState; */
 }

@@ -70,7 +70,9 @@ namespace main {
             config::bigNumber.displayLargeInt(config::laps, BIG_DIGIT_X_OFFSET, BIG_DIGIT_Y_OFFSET, BIG_DIGIT_DIGITS, BIG_DIGIT_LEADING);
 		}
 
-		if (DEBUG) Serial.printf ("ESPNOW received: %s\n", incoming);
+		#ifdef DEBUG
+        Serial.printf ("ESPNOW received: %s\n", incoming);
+        #endif
 	}
 
     void dataSent(uint8_t* address, uint8_t status) {
@@ -108,9 +110,13 @@ namespace main {
 		wifi_second_chan_t secondary_channel = WIFI_SECOND_CHAN_NONE;
 		esp_wifi_set_promiscuous(true);
 		if (esp_wifi_set_channel(primary_channel, secondary_channel) == ESP_OK) {
-			if(DEBUG) Serial.printf("Canal ESPNOW cambiado a %i\n", ESPNOW_CHANNEL);
+			#ifdef DEBUG
+            Serial.printf("Canal ESPNOW cambiado a %i\n", ESPNOW_CHANNEL);
+            #endif
 		} else {
-			if(DEBUG) Serial.printf("ERROR al cambiar canal\n");
+            #ifdef DEBUG
+			Serial.printf("ERROR al cambiar canal\n");
+            #endif
 		}
 		esp_wifi_set_promiscuous(false);
 
@@ -118,12 +124,14 @@ namespace main {
         quickEspNow.onDataSent(dataSent);
 		quickEspNow.begin(ESPNOW_CHANNEL);
 
-		if (DEBUG) Serial.println("ESP-NOW inicializado");
-		if (DEBUG) Serial.println(WiFi.localIP());
-		if (DEBUG) Serial.println(WiFi.channel());
-		if (DEBUG) Serial.println(WiFi.macAddress());
-		// if (DEBUG) Serial.println(WiFi.softAPmacAddress());
-		// if (DEBUG) Serial.printf("AP %s inicializado en %u.%u.%u.%u\n", WIFI_SSID, ip & 0xff, (ip >> 8) & 0xff, (ip >> 16) & 0xff, ip >> 24);
+		#ifdef DEBUG
+        Serial.println("ESP-NOW inicializado");
+		Serial.println(WiFi.localIP());
+		Serial.println(WiFi.channel());
+		Serial.println(WiFi.macAddress());
+		// Serial.println(WiFi.softAPmacAddress());
+		// Serial.printf("AP %s inicializado en %u.%u.%u.%u\n", WIFI_SSID, ip & 0xff, (ip >> 8) & 0xff, (ip >> 16) & 0xff, ip >> 24);
+        #endif
 
 		// Para control RSSI
 		esp_wifi_set_promiscuous(true);
@@ -144,7 +152,9 @@ namespace main {
 
         showStatus();
 
-		if (DEBUG) Serial.println("Display LCD: OK");
+		#ifdef DEBUG
+        Serial.println("Display LCD: OK");
+        #endif
 	}
 
 	void beat() {
@@ -154,7 +164,9 @@ namespace main {
 				const String payload = ((String)DEVICE_ID + ",BEAT");
                 quickEspNow.send(config::espnow_gateway, (uint8_t*)payload.c_str(), 6);
 				
-                // if (DEBUG) Serial.printf("SN %i\n", config::rssi_value);
+                #ifdef DEBUG
+                // Serial.printf("SN %i\n", config::rssi_value);
+                #endif
 			}
 
 			beat_timer = millis();

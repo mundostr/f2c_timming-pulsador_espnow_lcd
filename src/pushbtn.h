@@ -53,7 +53,9 @@ namespace pushbtn {
         sendLaps();
         updateDisplay();
         
-        if (DEBUG) Serial.println("Limpia vueltas");
+        #ifdef DEBUG
+        Serial.println("Limpia vueltas");
+        #endif
 
 	}
 

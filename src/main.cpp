@@ -14,7 +14,9 @@ ATENCION!: recordar borrar la flash completa
 #include "pushbtn.h"
 
 void setup() {
-	if (DEBUG) Serial.begin(SERIAL_CONSOLE_BAUDS);
+	#ifdef DEBUG
+    Serial.begin(SERIAL_CONSOLE_BAUDS);
+    #endif
 
 	main::init();
     pushbtn::init();
