@@ -21,6 +21,7 @@ https://randomnerdtutorials.com/esp-now-two-way-communication-esp32/
 #define PUSHBTN_PIN GPIO_NUM_12
 #define BUZZER_PIN GPIO_NUM_18
 #define WAKEUP_PIN GPIO_NUM_32
+#define BATTERY_LEVEL_PIN GPIO_NUM_36
 
 #define BEAT_FREQ 5000
 #define BEAT_BACK_FREQ 5100

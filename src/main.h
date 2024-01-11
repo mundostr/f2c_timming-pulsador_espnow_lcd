@@ -46,6 +46,7 @@ namespace main {
         pinMode(BUZZER_PIN, OUTPUT);
         digitalWrite(BUZZER_PIN, LOW);
         pinMode(WAKEUP_PIN, INPUT_PULLUP);
+        pinMode(BATTERY_LEVEL_PIN, INPUT);
 
         esp_sleep_enable_ext0_wakeup(WAKEUP_PIN, 0);
     }
@@ -145,10 +146,6 @@ namespace main {
         config::display.backlight();
 
         config::bigNumber.begin();
-        config::bigNumber.displayLargeInt(config::laps, BIG_DIGIT_X_OFFSET, BIG_DIGIT_Y_OFFSET, BIG_DIGIT_DIGITS, BIG_DIGIT_LEADING);
-        
-        config::display.setCursor(14, 0);
-        config::display.printf("P%d", config::device_id);
 
         showStatus();
 
@@ -187,6 +184,7 @@ namespace main {
     }
 
     void get_preferences() {
+        config::display.clear();
         config::preferences.begin("lapcounter", false);
         config::device_id = config::preferences.getUInt("device_id", 1);
 
@@ -202,7 +200,27 @@ namespace main {
             config::display.setCursor(14, 0);
             config::display.printf("P%d", config::device_id);
         }
+        config::bigNumber.displayLargeInt(config::laps, BIG_DIGIT_X_OFFSET, BIG_DIGIT_Y_OFFSET, BIG_DIGIT_DIGITS, BIG_DIGIT_LEADING);
 
         config::preferences.end();
+    }
+
+    void show_battery_status() {
+        int battery_reading = analogRead(BATTERY_LEVEL_PIN);
+        float battery_reading_converted = (battery_reading * 3.4) / 4096;
+        float voltage_reading = (battery_reading_converted * 4.2) / 3.3;
+
+        config::display.clear();
+        config::display.setCursor(0, 0);
+        config::display.print(voltage_reading <= 3.3 ? "BATERIA RECARGAR": voltage_reading <= 3.7 ? "BATERIA BIEN": "BATERIA OPTIMA");
+
+        config::display.setCursor(0, 1);
+        config::display.print(String(voltage_reading) + "V");
+
+        #ifdef DEBUG
+        Serial.println(voltage_reading);
+        #endif
+
+        delay(2000);
     }
 }
