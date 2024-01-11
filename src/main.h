@@ -207,7 +207,7 @@ namespace main {
 
     void show_battery_status() {
         int battery_reading = analogRead(BATTERY_LEVEL_PIN);
-        float battery_reading_converted = (battery_reading * 3.4) / 4096;
+        float battery_reading_converted = (battery_reading * 3.3) / 4096;
         float voltage_reading = (battery_reading_converted * 4.2) / 3.3;
 
         config::display.clear();
