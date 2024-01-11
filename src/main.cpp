@@ -22,6 +22,7 @@ void setup() {
     pushbtn::init();
 	main::init_espnow();
 	main::init_display();
+    main::get_preferences();
 }
 
 void loop() {

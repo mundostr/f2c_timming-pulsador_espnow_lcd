@@ -148,7 +148,7 @@ namespace main {
 		config::bigNumber.displayLargeInt(config::laps, BIG_DIGIT_X_OFFSET, BIG_DIGIT_Y_OFFSET, BIG_DIGIT_DIGITS, BIG_DIGIT_LEADING);
         
         config::display.setCursor(14, 0);
-		config::display.printf("P%d", DEVICE_ID);
+		config::display.printf("P%d", config::device_id);
 
         showStatus();
 
@@ -161,7 +161,7 @@ namespace main {
 		if (millis() - beat_timer >= BEAT_FREQ) {
 			if (!config::buzzing) {
                 config::sending_laps = false;
-				const String payload = ((String)DEVICE_ID + ",BEAT");
+				const String payload = ((String)config::device_id + ",BEAT");
                 quickEspNow.send(config::espnow_gateway, (uint8_t*)payload.c_str(), 6);
 				
                 #ifdef DEBUG
@@ -185,4 +185,24 @@ namespace main {
 			buzzer_timer = millis();
 		}
 	}
+
+    void get_preferences() {
+        config::preferences.begin("lapcounter", false);
+        config::device_id = config::preferences.getUInt("device_id", 1);
+
+        if (!digitalRead(WAKEUP_PIN)) {
+            while (!digitalRead(WAKEUP_PIN)) {
+                config::device_id < 3 ? config::device_id++: config::device_id = 1;
+                config::display.setCursor(14, 0);
+                config::display.printf("P%d", config::device_id);
+                config::preferences.putUInt("device_id", config::device_id);
+                delay(1500);
+            }
+        } else {
+            config::display.setCursor(14, 0);
+            config::display.printf("P%d", config::device_id);
+        }
+
+        config::preferences.end();
+    }
 }

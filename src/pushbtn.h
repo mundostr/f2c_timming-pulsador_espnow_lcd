@@ -8,7 +8,7 @@ namespace pushbtn {
 
     void sendLaps() {
         config::sending_laps = true;
-        const String payload = ((String)DEVICE_ID + "," + (String)config::laps);
+        const String payload = ((String)config::device_id + "," + (String)config::laps);
         quickEspNow.send(config::espnow_gateway, (uint8_t*)payload.c_str(), 5);
     }
 

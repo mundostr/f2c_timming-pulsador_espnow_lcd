@@ -13,6 +13,7 @@ https://randomnerdtutorials.com/esp-now-two-way-communication-esp32/
 #include <LiquidCrystal_I2C.h>
 #include "BigNumbers_I2C.h"
 #include <esp_sleep.h>
+#include <Preferences.h>
 
 // #define DEBUG
 
@@ -21,10 +22,6 @@ https://randomnerdtutorials.com/esp-now-two-way-communication-esp32/
 #define BUZZER_PIN GPIO_NUM_18
 #define WAKEUP_PIN GPIO_NUM_32
 
-// Generador random de ID, temporal, solo para pruebas
-const int randomId = random(1, 4);
-
-#define DEVICE_ID randomId
 #define BEAT_FREQ 5000
 #define BEAT_BACK_FREQ 5100
 #define ESPNOW_CHANNEL 1
@@ -40,6 +37,7 @@ const int randomId = random(1, 4);
 
 namespace config {
 	int laps = 0;
+    int device_id = 1;
 	int rssi_value = 0;
 	bool connection_on = false;
 	bool buzzing = false;
@@ -51,4 +49,5 @@ namespace config {
 
     LiquidCrystal_I2C display(0x27, 16, 2);
 	BigNumbers_I2C bigNumber(&display);
+    Preferences preferences;
 }
