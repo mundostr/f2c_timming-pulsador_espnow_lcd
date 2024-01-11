@@ -36,18 +36,18 @@ https://randomnerdtutorials.com/esp-now-two-way-communication-esp32/
 #define BIG_DIGIT_LEADING true
 
 namespace config {
-	int laps = 0;
+    int laps = 0;
     int device_id = 1;
-	int rssi_value = 0;
-	bool connection_on = false;
-	bool buzzing = false;
-	bool btn_long_pressed = false;
+    int rssi_value = 0;
+    bool connection_on = false;
+    bool buzzing = false;
+    bool btn_long_pressed = false;
     bool sending_laps = false;
     uint32_t beat_back_timer = 0;
-	uint8_t espnow_gateway[] = { 0xB4, 0xE6, 0x2D, 0xE9, 0xFE, 0x6E }; // Gateway mac custom
-	// uint8_t espnow_gateway[] = { 0x3C, 0x71, 0xBF, 0x4C, 0xF5, 0x8C }; // Gateway mac original
+    uint8_t espnow_gateway[] = { 0xB4, 0xE6, 0x2D, 0xE9, 0xFE, 0x6E }; // Gateway mac custom
+    // uint8_t espnow_gateway[] = { 0x3C, 0x71, 0xBF, 0x4C, 0xF5, 0x8C }; // Gateway mac original
 
     LiquidCrystal_I2C display(0x27, 16, 2);
-	BigNumbers_I2C bigNumber(&display);
+    BigNumbers_I2C bigNumber(&display);
     Preferences preferences;
 }

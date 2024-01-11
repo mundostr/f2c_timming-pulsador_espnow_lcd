@@ -14,20 +14,20 @@ ATENCION!: recordar borrar la flash completa
 #include "pushbtn.h"
 
 void setup() {
-	#ifdef DEBUG
+    #ifdef DEBUG
     Serial.begin(SERIAL_CONSOLE_BAUDS);
     #endif
-
-	main::init();
+    
+    main::init();
     pushbtn::init();
-	main::init_espnow();
-	main::init_display();
+    main::init_espnow();
+    main::init_display();
     main::get_preferences();
 }
 
 void loop() {
-	pushbtn::btn.loop();
+    pushbtn::btn.loop();
     pushbtn::check_suspension();
-	main::beat();
-	main::buzz();
+    main::beat();
+    main::buzz();
 }

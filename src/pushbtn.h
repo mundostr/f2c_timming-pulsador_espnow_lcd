@@ -3,7 +3,7 @@
 #include "config.h"
 
 namespace pushbtn {
-	Button2 btn;
+    Button2 btn;
     uint32_t manual_long_pressed_timer = 0;
 
     void sendLaps() {
@@ -14,18 +14,18 @@ namespace pushbtn {
 
     void updateDisplay() {
         config::bigNumber.displayLargeInt(config::laps, BIG_DIGIT_X_OFFSET, BIG_DIGIT_Y_OFFSET, BIG_DIGIT_DIGITS, BIG_DIGIT_LEADING);
-		main::beat_timer = millis();
+        main::beat_timer = millis();
     }
 
-	void cb_pressed(Button2& btn) {
+    void cb_pressed(Button2& btn) {
         config::btn_long_pressed = false;
-	}
+    }
 
-	void activate_buzz() {
-		config::buzzing = true;
-		main::buzzer_timer = millis();
-		digitalWrite(BUZZER_PIN, HIGH);
-	}
+    void activate_buzz() {
+        config::buzzing = true;
+        main::buzzer_timer = millis();
+        digitalWrite(BUZZER_PIN, HIGH);
+    }
 
     void check_suspension() {
         if (config::btn_long_pressed) {
@@ -57,26 +57,26 @@ namespace pushbtn {
         Serial.println("Limpia vueltas");
         #endif
 
-	}
+    }
 
-	void cb_released(Button2& btn) {
-		if (!config::buzzing && !config::btn_long_pressed) {
-			config::laps++;
+    void cb_released(Button2& btn) {
+        if (!config::buzzing && !config::btn_long_pressed) {
+            config::laps++;
             if (!config::connection_on) activate_buzz();
             sendLaps();
             updateDisplay();
             config::beat_back_timer = millis();
-		} else {
+        } else {
             config::btn_long_pressed = false;
         }
-	}
+    }
 
-	void init() {
-		btn.begin(PUSHBTN_PIN);
-		btn.setDebounceTime(PUSHBTN_DEBOUNCE_TIME);
-		btn.setLongClickTime(PUSHBTN_LONG_CLICK_DURATION);
-		btn.setPressedHandler(cb_pressed);
-		btn.setReleasedHandler(cb_released);
-		btn.setLongClickDetectedHandler(cb_long_pressed_detected);
-	}
+    void init() {
+        btn.begin(PUSHBTN_PIN);
+        btn.setDebounceTime(PUSHBTN_DEBOUNCE_TIME);
+        btn.setLongClickTime(PUSHBTN_LONG_CLICK_DURATION);
+        btn.setPressedHandler(cb_pressed);
+        btn.setReleasedHandler(cb_released);
+        btn.setLongClickDetectedHandler(cb_long_pressed_detected);
+    }
 }
