@@ -169,9 +169,14 @@ namespace main {
             beat_timer = millis();
         }
 
-        if (millis() - config::beat_back_timer > BEAT_BACK_FREQ) {
+        if (millis() - config::beat_back_timer >= BEAT_BACK_FREQ) {
             config::connection_on = false;
             showStatus();
+        }
+
+        if (millis() - config::backlight_timer >= BACKLIGHT_OFF_PERIOD) {
+            config::display.noBacklight();
+            config::backlight_timer = millis();
         }
     }
 

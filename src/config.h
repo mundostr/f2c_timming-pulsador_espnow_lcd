@@ -25,6 +25,7 @@ https://randomnerdtutorials.com/esp-now-two-way-communication-esp32/
 
 #define BEAT_FREQ 5000
 #define BEAT_BACK_FREQ 5100
+#define BACKLIGHT_OFF_PERIOD 10000
 #define ESPNOW_CHANNEL 1
 #define LED_NOTIF_FREQ 200
 #define BUZZER_NOTIF_FREQ 100
@@ -45,6 +46,7 @@ namespace config {
     bool btn_long_pressed = false;
     bool sending_laps = false;
     uint32_t beat_back_timer = 0;
+    uint32_t backlight_timer = 0;
     uint8_t espnow_gateway[] = { 0xB4, 0xE6, 0x2D, 0xE9, 0xFE, 0x6E }; // Gateway mac custom
     // uint8_t espnow_gateway[] = { 0x3C, 0x71, 0xBF, 0x4C, 0xF5, 0x8C }; // Gateway mac original
 

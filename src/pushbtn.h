@@ -18,7 +18,9 @@ namespace pushbtn {
     }
 
     void cb_pressed(Button2& btn) {
+        config::display.backlight();
         config::btn_long_pressed = false;
+        config::backlight_timer = millis();
     }
 
     void activate_buzz() {
@@ -32,10 +34,7 @@ namespace pushbtn {
             if (pushbtn::btn.isPressed() && millis() - pushbtn::manual_long_pressed_timer >= PUSHBTN_LONG_CLICK_DURATION * 2) {
                 config::btn_long_pressed = false;
                 pushbtn::manual_long_pressed_timer = millis();
-                config::display.clear();
                 config::display.noBacklight();
-
-                Serial.println("Suspensión");
 
                 esp_deep_sleep_start();
             }
