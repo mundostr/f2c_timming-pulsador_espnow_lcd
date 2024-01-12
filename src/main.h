@@ -91,16 +91,16 @@ namespace main {
         WiFi.mode(WIFI_OFF);
     }
 
-    void promiscuous_rx_cb(void *buf, wifi_promiscuous_pkt_type_t type) {
+    /* void promiscuous_rx_cb(void *buf, wifi_promiscuous_pkt_type_t type) {
         // All espnow traffic uses action frames which are a subtype of the mgmnt frames so filter out everything else.
         if (type != WIFI_PKT_MGMT) return;
         
         const wifi_promiscuous_pkt_t *ppkt = (wifi_promiscuous_pkt_t *)buf;
-        // const wifi_ieee80211_packet_t *ipkt = (wifi_ieee80211_packet_t *)ppkt->payload;
-        // const wifi_ieee80211_mac_hdr_t *hdr = &ipkt->hdr;
-        
+        const wifi_ieee80211_packet_t *ipkt = (wifi_ieee80211_packet_t *)ppkt->payload;
+        const wifi_ieee80211_mac_hdr_t *hdr = &ipkt->hdr;
+
         config::rssi_value = ppkt->rx_ctrl.rssi;
-    }
+    } */
 
     void init_espnow() {
         wf_reset();
@@ -135,8 +135,8 @@ namespace main {
         #endif
 
         // Para control RSSI
-        esp_wifi_set_promiscuous(true);
-        esp_wifi_set_promiscuous_rx_cb(&promiscuous_rx_cb);
+        // esp_wifi_set_promiscuous(true);
+        // esp_wifi_set_promiscuous_rx_cb(&promiscuous_rx_cb);
     }
 
     void init_display() {
