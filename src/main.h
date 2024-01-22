@@ -189,7 +189,6 @@ namespace main {
     }
 
     void get_preferences() {
-        config::display.clear();
         config::preferences.begin("lapcounter", false);
         config::device_id = config::preferences.getUInt("device_id", 1);
 
