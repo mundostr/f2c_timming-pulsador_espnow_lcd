@@ -188,12 +188,18 @@ namespace main {
         }
     }
 
+    void set_preferences() {
+        config::preferences.begin("lapcounter", false);
+        config::preferences.putUInt("device_id", config::device_id);
+        delay(1500);
+    }
+
     void get_preferences() {
         config::preferences.begin("lapcounter", false);
         config::device_id = config::preferences.getUInt("device_id", 1);
 
-        if (!digitalRead(WAKEUP_PIN)) {
-            while (!digitalRead(WAKEUP_PIN)) {
+        if (!digitalRead(PUSHBTN_PIN)) {
+            while (!digitalRead(PUSHBTN_PIN)) {
                 config::device_id < 3 ? config::device_id++: config::device_id = 1;
                 config::display.setCursor(14, 0);
                 config::display.printf("P%d", config::device_id);

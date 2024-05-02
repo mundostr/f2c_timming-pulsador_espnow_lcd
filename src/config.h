@@ -1,6 +1,8 @@
 /*
 https://github.com/gmag11/QuickEspNow
 https://randomnerdtutorials.com/esp-now-two-way-communication-esp32/
+
+Divisor de voltaje control batería: R1 (+) 27k, R2 (-) 100k
 */
 
 #pragma once
@@ -39,7 +41,7 @@ https://randomnerdtutorials.com/esp-now-two-way-communication-esp32/
 
 namespace config {
     int laps = 0;
-    int device_id = 1;
+    int device_id = 2;
     int rssi_value = 0;
     bool connection_on = false;
     bool buzzing = false;

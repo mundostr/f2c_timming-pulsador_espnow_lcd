@@ -22,7 +22,7 @@ void setup() {
     pushbtn::init();
     main::init_espnow();
     main::init_display();
-    main::show_battery_status();
+    // main::show_battery_status();
     main::get_preferences();
 }
 
